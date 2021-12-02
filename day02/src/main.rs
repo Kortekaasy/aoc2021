@@ -1,11 +1,38 @@
 // ========================= Challenge Logic ============================
 
 pub fn part1(input: String) -> String {
-    format!("Unimplemented!")
+    let (mut h, mut d) = (0, 0);
+    for l in input.lines() {
+        if let Some((instr, val)) = l.split_once(" ") {
+            let by = val.parse::<i64>().expect("Could not convert val to i64");
+            match instr {
+                "forward" => h += by,
+                "down" => d += by,
+                "up" => d -= by,
+                _ => panic!("Unknown instruction \"{} {}\"", instr, val)
+            }
+        }
+    }
+    format!("{}", h * d)
 }
 
 pub fn part2(input: String) -> String {
-    format!("Unimplemented!")
+    let (mut h, mut d, mut aim) = (0, 0, 0);
+    for l in input.lines() {
+        if let Some((instr, val)) = l.split_once(" ") {
+            let by = val.parse::<i64>().expect("Could not convert val to i64");
+            match instr {
+                "forward" => {
+                    h += by;
+                    d += aim * by;
+                },
+                "down" => aim += by,
+                "up" => aim -= by,
+                _ => panic!("Unknown instruction \"{} {}\"", instr, val)
+            }
+        }
+    }
+    format!("{}", h * d)
 }
 
 // =========================== Main Function ============================
