@@ -1,0 +1,15 @@
+WHITESPACE = _{ " " }
+newline = _{ "\r\n" | "\n" }
+
+num = { ASCII_DIGIT }
+
+LPAREN = _{ "[" }
+RPAREN = _{ "]" }
+sfnum = { 
+	LPAREN ~ num ~ "," ~ num ~ RPAREN | 
+	LPAREN ~ num ~ "," ~ sfnum ~ RPAREN | 
+	LPAREN ~ sfnum ~ "," ~ num ~ RPAREN | 
+    LPAREN ~ sfnum ~ "," ~ sfnum ~ RPAREN 
+}
+
+sfnums = { SOI ~ sfnum ~ (newline ~ sfnum)* ~ EOI }

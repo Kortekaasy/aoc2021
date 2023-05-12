@@ -1,9 +1,11 @@
 mod main;
 
 pub fn part1() -> String {
-    main::part1(include_str!("../input").to_owned())
+    let (field, folds) = main::parse_input(include_str!("../input").to_owned());
+    main::part1(field, folds)
 }
 
 pub fn part2() -> String {
-    main::part2(include_str!("../input").to_owned())
+    let (field, folds) = main::parse_input(include_str!("../input").to_owned());
+    main::part2(field, folds)
 }

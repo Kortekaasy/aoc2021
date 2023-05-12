@@ -99,9 +99,9 @@ pub fn part1(mut octopi: Vec<Octopus>) -> String {
     // print_octopi(&octopi, 0);
 
     for round in 0..100 {
-        for octopus in octopi.iter_mut() {
-            octopus.increase_energy();
-        }
+        octopi.iter_mut()
+            .for_each(|o| o.increase_energy());
+
         let mut flashing = octopi.iter().enumerate().filter(|&(_i, o)| o.flash()).map(|(i, _o)| i).collect::<HashSet<usize>>();
         flashes += flashing.len();
 
@@ -120,11 +120,9 @@ pub fn part1(mut octopi: Vec<Octopus>) -> String {
             // flashing = octopi.iter().enumerate().filter(|&(_i, o)| o.flash()).map(|(i, _o)| i).collect::<Vec<usize>>();
         }
 
-        for octopus in octopi.iter_mut() {
-            if octopus.get_energy() > 9 {
-                octopus.reset_energy();
-            }
-        }
+        octopi.iter_mut()
+            .filter(|o| o.get_energy() > 9)
+            .for_each(|o|o.reset_energy());
 
         // print_octopi(&octopi, round + 1);
     }
@@ -142,9 +140,8 @@ pub fn part2(mut octopi: Vec<Octopus>) -> String {
         round += 1;
         prev_flashes = flashes;
 
-        for octopus in octopi.iter_mut() {
-            octopus.increase_energy();
-        }
+        octopi.iter_mut()
+            .for_each(|o| o.increase_energy());
 
         let mut flashing = octopi.iter().enumerate().filter(|&(_i, o)| o.flash()).map(|(i, _o)| i).collect::<HashSet<usize>>();
         flashes += flashing.len();
@@ -163,11 +160,9 @@ pub fn part2(mut octopi: Vec<Octopus>) -> String {
             flashing = new_flashing;
         }
 
-        for octopus in octopi.iter_mut() {
-            if octopus.get_energy() > 9 {
-                octopus.reset_energy();
-            }
-        }
+        octopi.iter_mut()
+            .filter(|o| o.get_energy() > 9)
+            .for_each(|o|o.reset_energy());
     }
 
     format!("{}", round)
